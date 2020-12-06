@@ -38,6 +38,26 @@ public:
     }
 
     template<typename num, typename = typename std::enable_if<std::is_arithmetic<num>::value, num>::type>
+    void operator-=(num a){
+        for(int r = 0; r < _rows; r++){
+            for(int c = 0; c < _cols; c++){
+                data[r][c] -= a;
+            }
+        }
+    }
+
+    template<typename num, typename = typename std::enable_if<std::is_arithmetic<num>::value, num>::type>
+    Matrix operator-(num a){
+        Matrix m = Matrix(_rows,_cols);
+        for(int r = 0; r < _rows; r++){
+            for(int c = 0; c < _cols; c++){
+                m.data[r][c] = data[r][c] - a;
+            }
+        }
+        return m;
+    }
+
+    template<typename num, typename = typename std::enable_if<std::is_arithmetic<num>::value, num>::type>
     void operator*=(num a){
         for(int r = 0; r < _rows; r++){
             for(int c = 0; c < _cols; c++){
@@ -85,6 +105,24 @@ public:
         }
 
         return m;
+    }
+
+    Matrix operator+(Matrix a){
+        Matrix m = Matrix(_rows,_cols);
+        for(int r = 0; r < _rows; r++){
+            for(int c = 0; c < _cols; c++){
+                m.data[r][c] = data[r][c] + a.data[r][c];
+            }
+        }
+        return m;
+    }
+
+    void operator+=(Matrix a){
+        for(int r = 0; r < _rows; r++){
+            for(int c = 0; c < _cols; c++){
+                data[r][c] += a.data[r][c];
+            }
+        }
     }
 
     float& operator()(int x,int y){
